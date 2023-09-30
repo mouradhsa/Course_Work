@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
+
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.menuSauvegardeController">
+   <children>
+      <Text layoutX="142.0" layoutY="76.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Donnéees du Bar">
+         <font>
+            <Font name="Arial" size="18.0" />
+         </font>
+      </Text>
+      <Text layoutX="142.0" layoutY="114.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Vous pouvez sauvegarder les stocks actuels">
+         <font>
+            <Font name="Arial" size="16.0" />
+         </font>
+      </Text>
+      <Text layoutX="142.0" layoutY="144.0" strokeType="OUTSIDE" strokeWidth="0.0" text="ou charger ceux précédemment sauvegardés">
+         <font>
+            <Font name="Arial" size="16.0" />
+         </font>
+      </Text>
+      <Button fx:id="btnsave" layoutX="258.0" layoutY="200.0" mnemonicParsing="false" onAction="#btnSave" text="Sauvegarder" />
+      <Button fx:id="btnload" layoutX="258.0" layoutY="246.0" mnemonicParsing="false" onAction="#btnLoad" text="Charger" />
+      <Button fx:id="btnretour" layoutX="90.0" layoutY="308.0" mnemonicParsing="false" onAction="#btnRetour" text="Retour" />
+   </children>
+</AnchorPane>

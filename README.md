@@ -1,3 +1,3 @@
 # Course_Work
 
-Course Exercice and work.
+Some of my Academic Projetcs

@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.menuCocktailController">
+   <children>
+      <TableView fx:id="carteboissons" layoutX="14.0" layoutY="77.0" prefHeight="200.0" prefWidth="265.0">
+        <columns>
+          <TableColumn fx:id="colnom" prefWidth="114.4000301361084" text="nom" />
+          <TableColumn fx:id="colprix" minWidth="0.0" prefWidth="51.20001220703125" text="prix" />
+            <TableColumn fx:id="colsucre" prefWidth="47.99993896484375" text="Sucre" />
+            <TableColumn fx:id="colalcool" prefWidth="52.800048828125" text="Alcool" />
+        </columns>
+      </TableView>
+      <TableView fx:id="tmpcocktail" layoutX="353.0" layoutY="69.0" prefHeight="140.0" prefWidth="200.0">
+        <columns>
+          <TableColumn fx:id="tmpnom" prefWidth="141.5999755859375" text="nom" />
+          <TableColumn fx:id="tmpprix" prefWidth="59.20001220703125" text="prix" />
+        </columns>
+      </TableView>
+      <TextField fx:id="tfnomcocktail" layoutX="402.0" layoutY="298.0" />
+      <Text layoutX="35.0" layoutY="54.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Boissons disponibles :">
+         <font>
+            <Font name="Arial" size="16.0" />
+         </font>
+      </Text>
+      <Text layoutX="364.0" layoutY="53.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Composition du cocktail :">
+         <font>
+            <Font name="Arial" size="16.0" />
+         </font>
+      </Text>
+      <Text layoutX="305.0" layoutY="316.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Nom du cocktail :" />
+      <Button fx:id="btnajout" layoutX="23.0" layoutY="290.0" mnemonicParsing="false" onAction="#btnAjout" text="Ajouter boisson" />
+      <Button fx:id="btnretrait" layoutX="23.0" layoutY="332.0" mnemonicParsing="false" onAction="#btnRetrait" text="Retirer boisson" />
+      <Button fx:id="btncompo" layoutX="351.0" layoutY="345.0" mnemonicParsing="false" onAction="#btnCompo" text="Composer le cocktail" />
+      <Button fx:id="btnretour" layoutX="489.0" layoutY="345.0" mnemonicParsing="false" onAction="#btnRetour" text="Retour" />
+      <Text layoutX="353.0" layoutY="273.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Prix cocktail :">
+         <font>
+            <Font name="Arial" size="14.0" />
+         </font>
+      </Text>
+      <Text layoutX="364.0" layoutY="235.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Sucre :">
+         <font>
+            <Font name="Arial" size="14.0" />
+         </font>
+      </Text>
+      <Text layoutX="477.0" layoutY="235.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Alcool : ">
+         <font>
+            <Font name="Arial" size="14.0" />
+         </font>
+      </Text>
+      <Text fx:id="txtsucre" layoutX="415.0" layoutY="235.0" strokeType="OUTSIDE" strokeWidth="0.0" />
+      <Text fx:id="txtalcool" layoutX="530.0" layoutY="235.0" strokeType="OUTSIDE" strokeWidth="0.0" />
+      <Text fx:id="txtprix" layoutX="453.0" layoutY="273.0" strokeType="OUTSIDE" strokeWidth="0.0" />
+   </children>
+</AnchorPane>

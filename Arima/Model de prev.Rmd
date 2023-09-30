@@ -1,0 +1,222 @@
+---
+title: 'Projet : Modèles de prévisions'
+author: 'Ali ELbouhi - Omar Oumlala - Mourad Ait Si Hammou '
+date: "04/11/2022"
+output:
+  pdf_document: default
+  html_document:
+    df_print: paged
+  word_document: default
+header-incluse: -\usepackage{xcolor}
+fig_width: 60
+fig_height: 40
+---
+
+\textcolor{red}{Allen}
+
+Import library 
+
+```{r}
+knitr::opts_chunk$set(fig.width=12, fig.height=8) 
+setwd(getwd())
+library(tseries)
+library(lmtest)
+library(forecast)
+library(ggplot2)
+```
+
+
+Import data : reference (https://fred.stlouisfed.org/series/GDP)
+```{r}
+df <- read.csv('GDP_USA.csv',sep=',')
+```
+
+
+Convert US gdp data into time series
+```{r}
+gdp  <- ts(df$GDP,start=c(1947,1,1),frequency = 4)
+gdp_ts <- window(gdp,start=c(1950,1),end=c(2021,4))
+gdp_ts_test <- window(gdp,start=c(2022,1))
+```
+
+Extract seasonality and trend from our ts
+```{r}
+gdp_ts_component <- decompose(gdp_ts)
+plot(gdp_ts_component)
+```
+
+As shown in the figure above, both variables are approximately follow exponential form with a general increasingtrend. In other words the original GDP  sequence are non-stationary. However, In order to confirm this conclusion, we plotted the Autocorrelation Function (ACF) and the Partial Autocorrelation Function (PACF) against lags which are known as (Correlogram) to both series,
+```{r}
+par(mfrow=c(1,2))
+acf_gdp<- acf(gdp_ts,lag.max=100)
+pacf_gdp <- pacf(gdp_ts)
+Box.test(gdp_ts, lag=20, type="Ljung-Box")
+
+```
+
+
+The figure clearly shows that the most striking feature of this correlogram is that the autocorrelation coefficients at various lags are high even up to a lag of 20 for GDP,In addition, the Q-statistic of Ljung-Box (1978) at the 20th lag has a probability value of 0.000, so we can conclude that GDP is non-stationary.
+
+Thus, the series must be transformed to be stationary. To eliminate non-stationarity, we took the natural logarithm of GDP thus obtaining a new variables named lgdp
+
+```{r}
+lgdp=log(gdp_ts)
+adf.test(lgdp)
+```
+
+After applying the Augmented Dickey-Fuller (ADF) test to the series, the results showed that LGDP were still non-stationary
+
+Therefore, the first-order difference was taken, for the serie producing a new variables DLGDP. These variable proved not to be stationary as confirmed by the result of the acf and pacf correlation;
+```{r}
+dlgdp <- diff(lgdp)
+par(mfrow=c(1,2))
+acf(dlgdp,lag.max=11)
+pacf(dlgdp,lag.max=10)
+
+```
+
+
+Therefore, the second-order difference was taken, for the serie producing a new variables DDLGDP. These variable proved to be stationary as confirmed by the results of the ADF test.
+```{r}
+
+ddlgdp <- diff(dlgdp)
+adf.test(ddlgdp)
+```
+
+
+```{r}
+par(mfrow=c(1,2))
+acf(ddlgdp,lag.max=11)
+pacf(ddlgdp,lag.max=10)
+
+
+```
+
+After getting a stationary sequence, the next step is to identify the model, i. e., to determine the values of the parameters p and q in ARIMA (p,d,q) model. According to the correlogram of the stationary series (DDLGDP), the lag at which the PACF cuts off is the indicated value of p, and the lag at which the ACF cuts off is the indicated value of q Moreover, (d=2) as the model is stationary at the second differences.
+Referring to acf above, we can conclude that the autocorrelation coefficient for the DDLGDP serie is significantly non-zero when the lag order is (0,1), representing the values that q can take.The partial autocorrelation coefficient for the DDLGDP is significantly non-zero when the lag order is (1,2,3,4,5,6,8), so p=1,2 and q=1,2,3,4,5,6,8 and these values can be taken into consideration.
+
+
+In order to forecast GDP, that combination can be made automatically, and an optimal one can be chosen based on minimum AIC
+```{r}
+
+model1 <- arima(lgdp,order=c(0,2,3))
+AIC(model1)
+
+```
+```{r}
+model2 <- arima(lgdp,order=c(1,2,8))
+AIC(model2)
+```
+```{r}
+model3 <- arima(lgdp,order = c(3,2,3))
+AIC(model3)
+```
+
+
+
+Results indicated that the ARIMA (0, 2, 3) is the best fit more over the auto.arima function confirm our pre-selected parameters.
+
+```{r}
+ar_model <- auto.arima(lgdp,stepwise = FALSE,approximation = FALSE)
+ar_model
+```
+
+
+```{r}
+residual_plot<- checkresiduals(model1)
+```
+``` {r}
+residual_plot
+```
+The ACF plot of the residuals from the ARIMA(0,2,3) model shows that all autocorrelations are within the threshold limits, indicating that the residuals are behaving like white noise. A portmanteau test returns a large p-value, also suggesting that the residuals are white noise.
+
+
+One of the chosen fitted models which are summarized in the Figure above is ARIMA (0,2,3). It can be applied to DDLGDP in order to forecast the values of LGDP.
+It have been estimated with the results as : 
+$DDLGDP= -0.8534\epsilon_{t-1}  + 0.0648\epsilon_{t-2}  -0.1487\epsilon_{t-3}$
+
+
+
+We will compare our forecasted value between the test set which is the 2022Q1 & 2022Q2.
+Bellow we can see our forecasted points and our interval confidance :
+
+  - Lo80 return to lower boundary with a precision of 80%
+  
+  - Hi80 return to upper boundary with a precision of 95%
+  
+  - Lo95 return to lower boundary with a precision of 95%
+  
+  - Hi95 return to upper boundary with a precision of 95%
+```{r}
+l_forecasted = forecast(model1,h=2)
+summary(l_forecasted)
+
+```
+
+
+
+
+
+```{r}
+acc_l_forecasted <- accuracy(object = l_forecasted,x = log(gdp_ts_test))
+acc_l_forecasted
+```
+
+
+As we see our metric error are low when we compare against our forecasted values between the test set.
+MAPE metric is commonly used because it’s easy to interpret and explain.
+Our MAPE value of 0.037% means that the average difference between the forecasted value and the actual value is 0.037%.
+Which is very low , we can affirm that our model is highly precise concerning the LGDP. 
+
+
+
+For better visibility I will plot our time series starting 2019.
+```{r}
+sub_ts <- window(lgdp,start=c(2019))
+autoplot(sub_ts,main = 'Log Forecast For 2022Q1 - 2022Q2 of US GDP',xlab = 'Year - Quarter',ylab = 'Log GDP')+
+  autolayer(l_forecasted, "Forecasted Log US GDP")+
+  autolayer(log(gdp_ts_test),series = 'Test Set Log US GDP')
+  
+```
+
+
+Now lets predict the GDP by applying the exponential to our series.
+
+
+```{r}
+
+forecasted = l_forecasted
+forecasted$mean=exp(l_forecasted$mean)
+forecasted$lower=exp(l_forecasted$lower)
+forecasted$upper=exp(l_forecasted$upper)
+summary(forecasted)
+```
+
+
+
+```{r}
+acc_forecasted <- accuracy(object = forecasted,x = gdp_ts_test)
+acc_forecasted
+```
+
+
+Our MAPE value of 0,378% means that the average difference between the forecasted value and the actual value is 0,378%.
+Which is very low , we can affirm that our model is highly precise concerning the GDP. 
+
+
+For better visibility I will plot our time series starting 2019.
+```{r}
+
+
+sub_ts <- window(gdp_ts,start=c(2019))
+autoplot(sub_ts,main = 'Forecast For 2022Q1 - 2022Q2 of US GDP',xlab = 'Year - Quarter',ylab = 'US GDP')+
+  autolayer(forecasted, "Forecasted US GDP")+
+  autolayer(gdp_ts_test,series = 'Test Set US GDP')
+```
+Conclusion:
+The methodology of Box – Jenkins technique (ARIMA), which is a relatively advanced time series forecast method, is applied
+in this project with the aim of forecasting GDP in America for the next two quarter (2022Q1, 2022Q2). 
+After testing the stationarity of the data using ADF and PP test, the series were stationary at the second difference after
+calculating the logarithm of the data. From the Correlogram of ACF, we determined the appropriate number of
+autoregressive terms (p). From the Correlogram of PACF, we determined the appropriate number of moving average terms (q). Based on the minimum AIC , we chose the optimal ARIMA model which is ARIMA (0,2,3) to forecast GDP for the quarters 2022Q1, 2022Q2 as 24359.18, 24723.10	 respectively. 
+

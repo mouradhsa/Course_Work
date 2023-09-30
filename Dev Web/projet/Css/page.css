@@ -1,0 +1,382 @@
+html, body, p {
+	margin: 0;
+	padding: 0;
+	font-family: Avenir, sans-serif;
+}
+
+header h1 {
+	text-align: center;
+}
+
+h2 {
+	font-family: Arial, Helvetica, sans-serif;
+	font-weight: 400;
+}
+
+.centrer {
+	text-align: center;
+}
+
+header {
+	text-align: center;
+	/*texte centré*/
+}
+
+nav ul {
+	margin-top: 0;
+	list-style-type: none;
+	display: flex;
+	flex-direction: row;
+	justify-content: space-evenly;
+	align-items: center;
+	height: 100%;
+}
+
+nav ul li {
+	padding-left: 20px;
+	padding-right: 20px;
+	text-align: center;
+}
+
+nav {
+	background: rgb(9, 9, 121);
+	background: radial-gradient(circle, rgba(9, 9, 121, 1) 75%, rgba(0, 212, 255, 1) 100%);
+	width: 100%;
+	height: 50px;
+	color: white;
+}
+
+nav a::after {
+	display: block;
+	border-bottom: 2px solid transparent;
+	padding: 10px 0px;
+	transition: all .2s ease-in-out;
+	transform: scaleX(0);
+	transform-origin: 0% 50%;
+}
+
+nav a {
+	font-size: 1.5em;
+	display: block;
+	text-decoration: none;
+	color: white;
+}
+
+nav a:hover {
+	transform: scaleX(1);
+}
+
+nav a:hover {
+	color: orange;
+	border-bottom: 2px solid gold;
+}
+
+#menu {
+	width: 20%;
+	padding-left: 10px;
+	background-color: #b4d0fc;
+}
+
+#menu ul {
+	display: flex;
+	flex-direction: column;
+	list-style: none;
+	width: 100%;
+	padding: 0px;
+}
+
+#menu ul li {
+	height: 30px;
+	margin-left: 0px;
+	margin-right: 0px;
+	margin-bottom: 10px;
+	border: 2px solid crimson;
+	border-radius: 10px;
+	text-align: center;
+}
+
+.global {
+	display: flex;
+	flex-direction: row;
+	width: 100%;
+}
+
+.global p {
+	text-align: center;
+}
+
+#content {
+	width: 75%;
+	padding: 45px;
+	background-color: rgb(243, 243, 240);
+}
+
+#container {
+	width: 75%;
+	padding: 45px;
+	background-color: rgb(243, 243, 240);
+}
+
+#container h1 {
+	width: 38%;
+	margin: 0 auto;
+	padding-bottom: 10px;
+}
+
+#content h1 {
+	text-align: center;
+}
+
+#content p {
+	text-align: center;
+}
+
+p {
+	font: 1em Tahoma, Geneva, sans-serif;
+	/* Taille et police de caractère utilisées */
+	margin-bottom: 1em;
+	/* Marge inférieure */
+}
+
+footer {
+	width: 100%;
+	display: block;
+	padding: 25px 0px;
+	/*Marge verticale*/
+	/* background-color: #59719A;*/
+	background: rgb(9, 9, 121);
+	background: radial-gradient(circle, rgba(9, 9, 121, 1) 75%, rgba(0, 212, 255, 1) 100%);
+	/*Couleur de fond*/
+	text-align: center;
+	color: white;
+	/*texte centré*/
+}
+
+table {
+	text-align: center;
+	border-collapse: collapse;
+	/* Les bordures du tableau seront collées (plus joli) */
+}
+
+td {
+	border: 1px solid gray;
+}
+
+form {
+	width: 50%;
+}
+
+.form label {
+	/* Pour être sûrs que toutes les étiquettes ont même taille et sont correctement alignées */
+	display: inline-block;
+	width: 180px;
+	text-align: ri;
+}
+
+input, textarea {
+	/* Pour s'assurer que tous les champs texte ont la même police.
+	   Par défaut, les textarea ont une police monospace */
+	font: 1em sans-serif;
+	/* Pour que tous les champs texte aient la même dimension */
+	width: 300px;
+}
+
+textarea {
+	/* Pour aligner les champs texte multi‑ligne avec leur étiquette */
+	vertical-align: top;
+	/* Pour donner assez de place pour écrire du texte */
+	height: 5em;
+}
+
+.button {
+	/* Pour placer le bouton à la même position que les champs texte */
+	padding-left: 180px;
+	/* même taille que les étiquettes */
+}
+
+button {
+	margin-left: .5em;
+}
+.connectForm{
+	width: auto;
+	text-align: center;
+}
+.connectForm div{
+	display: inline-block;
+
+	width: 200px;
+	margin-bottom: 15px;
+	text-align: center;
+
+}
+
+.connectForm h1{
+	text-align: center;
+
+	font-weight: 400;
+	margin-bottom: 30px !important;
+}
+
+.connectForm div label,
+.connectForm div input {
+width: 100%;
+}
+
+.connectForm div input{
+	height: 35px;
+
+	border: 3px solid #ccc;
+	border-radius: 8px;
+}
+
+.connectForm button{
+	padding: 8px 20px;
+	border: 3px solid lightgreen;
+	border-radius: 8px;
+
+	font-size: 1em;
+
+	background-color: white;
+	color: lightgreen;
+
+	transition: all .2s ease-in-out;
+}
+.connectForm button:hover{
+	background-color: lightgreen;
+	color: white;
+}
+#comp {
+	height: 200px;
+	width: 300px;
+	background-position: center;
+	transition: 1s;
+	cursor: zoom-in;
+}
+
+#comp:hover {
+	height: 250px;
+	width: 350px;
+}
+
+table .stock {
+	display: none;
+}
+
+table {
+	border-collapse: collapse;
+	width: 100%;
+	max-width: 700px;
+	min-width: 400px;
+	text-align: center;
+}
+
+table, th, td {
+	border: 1px solid gray;
+}
+
+th, td {
+	height: 24px;
+	padding: 4px;
+	vertical-align: middle;
+}
+
+th {
+	background-image: url(table-shaded.png);
+}
+
+.rowtitle {
+	background: #9CF;
+	font-weight: bold;
+}
+
+input {
+	width: 50px;
+	margin: 2px;
+}
+
+input#result {
+	width: 20px;
+	text-align: center;
+}
+
+td form {
+	height: 100px;
+	width: 80px;
+	padding-left: 15px;
+	padding-right: 15px;
+	border-top-style: solid;
+	border-top-width: 0px;
+	margin-top: 0px;
+}
+
+.result {
+
+
+	-moz-appearance: textfield;
+
+	  
+}
+
+input[type=number]::-webkit-inner-spin-button, 
+input[type=number]::-webkit-outer-spin-button { 
+  -webkit-appearance: none; 
+  margin: 0; 
+}
+
+.contactForm  {
+	width : auto;
+}
+.contactForm .form {
+	width: 100%;
+	min-height: 50px;
+
+	margin-bottom: 15px;
+}
+.contactForm .form input {
+	width: 30%;
+	height: 35px;
+
+	border: 3px solid #ccc;
+	border-radius: 8px;
+
+}
+
+.contactForm .form input:focus {
+	
+	border-color: lightskyblue;
+}
+
+.btn-submit {
+	padding: 5px 10px;
+
+	border: 3px solid #00ccfa;
+	border-radius: 8px;
+	background-color: white;
+	color: #00ccfa;
+
+	transition: all .2s ease-in-out;
+}
+
+.btn-submit:hover{
+	background-color: #00ccfa ;
+	color:white
+}
+
+
+.img-header{
+	width: 100%;
+	background-image: url('../Image/Capture.PNG');
+	background-size: cover;
+	background-position: center;
+	min-height: 140px;
+
+	display: flex;
+	flex-direction: row;
+	justify-content: center;
+	align-items: center;
+}
+
+.brand {
+	text-align: center;
+}
+
